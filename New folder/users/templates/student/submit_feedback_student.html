@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Submit Feedback | Student</title>
+  <link rel="stylesheet" href="{% static 'submit_feedback_student.css' %}">
+</head>
+<body>
+
+<header>
+  <div class="logo">Campus<span>EcoTrack</span></div>
+  <nav>
+    <a href="{% url 'student_dashboard' %}">Dashboard</a>
+    <a href="{% url 'submit_feedback_student' %}" class="active">Submit Feedback</a>
+    <a href="{% url 'view_feedback_student' %}">View My Feedback</a>
+    <a href="{% url 'logout_view' %}">Logout</a>
+  </nav>
+</header>
+
+<main class="form-container">
+  <h2>📢 Submit Feedback</h2>
+
+  <form method="POST">
+    {% csrf_token %}
+
+    <label>Feedback Type:</label>
+    <select name="type" required>
+      <option value="">-- Select Type --</option>
+      <option value="Alert">Alert (Bin Full)</option>
+      <option value="Suggestion">Suggestion</option>
+      <option value="Complaint">Complaint</option>
+    </select>
+
+    <label>Select Bin Location</label>
+      <select name="location" id="locationSelect">
+        <option value="">-- Select Location --</option>
+        {% for bin in bins %}
+          <option value="{{ bin.location }}">{{ bin.location }}</option>
+        {% endfor %}
+        <option value="Others">Others</option>
+      </select>
+
+    <div id="other-location" style="display:none;">
+      <label>Specify Other Location:</label>
+      <input type="text" name="other_location" placeholder="Enter custom location">
+    </div>
+
+    <label>Message:</label>
+    <textarea name="message" rows="4" required placeholder="Enter your message here..."></textarea>
+
+    <button type="submit">✅ Submit Feedback</button>
+  </form>
+</main>
+
+<footer>
+  <p>&copy; 2025 CampusEcoTrack | Student Portal</p>
+</footer>
+
+<script>
+  const locationSelect = document.querySelector('select[name="location"]');
+  const otherLocationBox = document.getElementById('other-location');
+
+  locationSelect.addEventListener('change', function () {
+    if (this.value === 'Others') {
+      otherLocationBox.style.display = 'block';
+    } else {
+      otherLocationBox.style.display = 'none';
+    }
+  });
+</script>
+
+</body>
+</html>

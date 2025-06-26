@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Submit Feedback</title>
+  <link rel="stylesheet" href="{% static 'staff_form.css' %}">
+</head>
+<body>
+  <header>
+  <div class="logo">Campus<span>EcoTrack</div>
+  <nav>
+    <a href="{% url 'staff_dashboard' %}">Dashboard</a>
+    <a class="active" href="{% url 'submit_feedback' %}">Submit Feedback</a>
+    <a href="{% url 'view_feedbacks' %}">View Feedback</a>
+    <a href="{% url 'view_students' %}">View Students</a>
+    <a href="{% url 'logout_view' %}">Logout</a>
+  </nav>
+</header>
+<main class="form-section">
+  <div class="card">
+    <h2>📝 Submit Feedback</h2>
+    <form method="POST">
+      {% csrf_token %}
+      <!-- Feedback Type -->
+      <div class="form-group">
+        <label>Type</label>
+        <select name="type" id="type-select" required>
+          <option value="Alert">Alert</option>
+          <option value="Suggestion">Suggestion</option>
+        </select>
+      </div>
+
+      <!-- Category -->
+      <div class="form-group">
+        <label>Bin Category</label>
+        <select name="category" id="category-select" required>
+          <option value="">-- Select Category --</option>
+          {% for cat in categories %}
+          <option value="{{ cat }}">{{ cat }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Bin Location -->
+      <div class="form-group">
+        <label>Bin Location</label>
+        <select name="location" id="location-select" required>
+          <option value="">-- Select Location --</option>
+          {% for bin in bins %}
+          <option data-cat="{{ bin.category }}" value="{{ bin.location }}">{{ bin.location }}</option>
+          {% endfor %}
+          <option value="Others">Others</option>
+        </select>
+      </div>
+
+      <!-- Other Location Input -->
+      <div class="form-group" id="other-location-group" style="display:none;">
+        <label>Specify Other Location</label>
+        <input type="text" name="other_location" id="other-location-input">
+      </div>
+
+      <!-- Message -->
+      <div class="form-group">
+        <label>Message</label>
+        <textarea name="message" rows="4" required></textarea>
+      </div>
+
+      <button type="submit" class="btn-submit">Submit</button>
+    </form>
+  </div>
+</main>
+
+<script>
+  const categorySelect = document.getElementById('category-select');
+  const locationSelect = document.getElementById('location-select');
+  const otherLocationGroup = document.getElementById('other-location-group');
+  const typeSelect = document.getElementById('type-select');
+
+  // Filter locations based on selected category
+  categorySelect.addEventListener('change', () => {
+    const selectedCat = categorySelect.value;
+    [...locationSelect.options].forEach(option => {
+      const cat = option.getAttribute('data-cat');
+      if (!cat || selectedCat === "") {
+        option.style.display = "";
+      } else {
+        option.style.display = (cat === selectedCat || option.value === "Others") ? "" : "none";
+      }
+    });
+    locationSelect.value = "";
+    toggleOtherLocation();
+  });
+
+  // Show other location input
+  locationSelect.addEventListener('change', toggleOtherLocation);
+  typeSelect.addEventListener('change', toggleOtherLocation);
+
+  function toggleOtherLocation() {
+    const showOther = locationSelect.value === 'Others';
+    otherLocationGroup.style.display = showOther ? 'block' : 'none';
+    document.getElementById('other-location-input').required = showOther && typeSelect.value === 'Alert';
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    toggleOtherLocation();
+  });
+</script>
+</body>
+</html>

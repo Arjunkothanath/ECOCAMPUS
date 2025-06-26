@@ -1,0 +1,111 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Feedbacks - Head Staff</title>
+  <link rel="stylesheet" href="{% static 'headstaff.css' %}">
+</head>
+<body>
+
+<header>
+  <div class="logo">Campus<span>EcoTrack</div>
+  <nav>
+    <a href="{% url 'headstaff_dashboard' %}">Dashboard</a>
+    <a href="{% url 'add_staff_by_head' %}">Add Staff</a>
+    <a href="{% url 'manage_staff' %}">Manage Staff</a>
+    <a href="{% url 'headstaff_view_users' %}">View Users</a>
+    <a class="active" href="{% url 'submit_feedback_headstaff' %}">Feedback</a>
+    <a href="{% url 'logout_view' %}">Logout</a>
+  </nav>
+</header>
+
+<main class="dashboard">
+  <a class="btn" href="{% url 'submit_feedback_headstaff' %}">🧾 Give Feedback</a>
+  <h1 style="margin-top: 60px;">🧾 My Feedback</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Bin</th>
+      <th>Description</th>
+      <th>Status</th>
+      <th>Submitted At</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for fb in own_feedbacks %}
+    <tr style="background-color: #fff7f7;">
+      <td>{{ fb.feedback_type }}</td>
+      <td>{{ fb.location }}</td>
+      <td>{{ fb.message }}</td>
+      <td>
+        {% if fb.feedback_type == "Alert" %}
+          {% if fb.status == "Pending" %}
+            <span style="color:red;">⏳ Pending</span>
+          {% else %}
+            <span style="color:green;">✅ Resolved</span>
+          {% endif %}
+        {% else %}
+          {% if fb.status == "Unread" %}
+            <span style="color:orange;">📩 Unread</span>
+          {% else %}
+            <span style="color:green;">📖 Read</span>
+          {% endif %}
+        {% endif %}
+      </td>
+      <td>{{ fb.created_at }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="6">You have not submitted any feedback yet.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+  <h1>🧾 All Feedbacks from Students and Staff</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Submitted By</th>
+        <th>Role</th>
+        <th>Type</th>
+        <th>Category</th>
+        <th>Bin</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Submitted At</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for fb in feedbacks %}
+      <tr>
+        <td>{{ fb.user.username }}</td>
+        <td>{{ fb.user.role|title }}</td>
+        <td>{{ fb.feedback_type }}</td>
+        <td>
+          {% for bin in bins %}
+            {% if bin.location == fb.location %}
+              {{ bin.category }}
+            {% endif %}
+          {% endfor %}
+        </td>
+        <td>{{ fb.location }}</td>
+        <td>{{ fb.message }}</td>
+        <td>{{ fb.status }}</td>
+        <td>{{ fb.created_at}}</td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="8">No feedback submitted yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="btn-back">
+    <a href="{% url 'headstaff_dashboard' %}">⬅ Back to Dashboard</a>
+  </div>
+</main>
+
+</body>
+</html>

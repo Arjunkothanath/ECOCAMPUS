@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Dashboard | CampusEcoTrack</title>
+  <link rel="stylesheet" href="{% static 'student_dashboard.css' %}">
+</head>
+<body>
+
+<header>
+  <div class="logo">Campus<span>EcoTrack</span></div>
+  <nav>
+    <a href="{% url 'student_dashboard' %}" class="active">Dashboard</a>
+    <a href="{% url 'submit_feedback_student' %}">Submit Feedback</a>
+    <a href="{% url 'view_feedback_student' %}">View My Feedback</a>
+    <a href="{% url 'logout_view' %}">Logout</a>
+  </nav>
+</header>
+
+<main class="dashboard">
+  <h1>👋 Welcome, {{ request.user.username|title }}</h1>
+
+  <section class="overview">
+    <div class="card">
+      <h3>Submit Feedback</h3>
+      <p>Alert about full bins or share suggestions</p>
+      <a href="{% url 'submit_feedback_student' %}" class="btn">Submit</a>
+    </div>
+
+    <div class="card">
+      <h3>View Your Feedback</h3>
+      <p>Track feedback status and responses</p>
+      <a href="{% url 'view_feedback_student' %}" class="btn">View</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>&copy; 2025 CampusEcoTrack | Student Panel</p>
+</footer>
+
+</body>
+</html>

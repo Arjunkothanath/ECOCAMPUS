@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Staff</title>
+  <link rel="stylesheet" href="{% static 'edit_staff.css' %}">
+</head>
+<body>
+
+<header>
+  <div class="logo">Campus<span>EcoTrack</div>
+  <nav>
+    <a href="{% url 'headstaff_dashboard' %}">Dashboard</a>
+    <a href="{% url 'add_staff_by_head' %}">Add Staff</a>
+    <a  class="active" href="{% url 'manage_staff' %}">Manage Staff</a>
+    <a href="{% url 'headstaff_view_users' %}">View Users</a>
+    <a href="{% url 'view_head_feedback' %}">Feedback</a>
+    <a href="{% url 'logout_view' %}">Logout</a>
+  </nav>
+</header>
+
+<main class="dashboard">
+  <div class="card">
+    <h2>✏ Edit Staff - {{ staff.username }}</h2>
+    <form method="POST">
+      {% csrf_token %}
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" name="username" value="{{ staff.username }}" required>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" name="email" value="{{ staff.email }}" required>
+      </div>
+      <button type="submit" class="btn-submit">Update</button>
+    </form>
+  </div>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Head Staff Dashboard</title>
+  <link rel="stylesheet" href="{% static 'headstaff.css' %}">
+</head>
+<body>
+
+<header>
+  <div class="logo">Campus<span>EcoTrack</div>
+  <nav>
+    <a class="active" href="{% url 'headstaff_dashboard' %}">Dashboard</a>
+    <a href="{% url 'add_staff_by_head' %}">Add Staff</a>
+    <a href="{% url 'manage_staff' %}">Manage Staff</a>
+    <a href="{% url 'headstaff_view_users' %}">View Users</a>
+    <a href="{% url 'view_head_feedback' %}">Feedback</a>
+    <a href="{% url 'logout_view' %}">Logout</a>
+  </nav>
+</header>
+
+<main class="dashboard">
+  <h1>👨‍🏫 Welcome, Head Staff</h1>
+
+  <div class="cards">
+    <div class="card red">
+      👥 Staff <span>{{ staff_count }}</span>
+    </div>
+    <div class="card blue">
+      🧾 Total Feedback <span>{{ feedback_count }}</span>
+    </div>
+    <div class="card green">
+      ✔ Resolved <span>{{ resolved_count }}</span>
+    </div>
+      
+  </div>
+
+  <div class="actions">
+  <a class="btn" href="{% url 'add_staff_by_head' %}">➕ Add Staff</a>
+  <a class="btn" href="{% url 'manage_staff' %}">👷 Manage Staff</a>
+  <a class="btn" href="{% url 'view_head_feedback' %}">🧾 Feedbacks</a>
+  <a class="btn" href="{% url 'headstaff_view_users' %}">👥 View Users</a>
+</div>
+</main>
+
+</body>
+</html>
