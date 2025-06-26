@@ -1,0 +1,166 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Feedbacks | Corporate Panel</title>
+  <link rel="stylesheet" href="{% static 'corporate_feedback.css' %}">
+</head>
+<body>
+  <header>
+    <div class="logo">Campus<span>EcoTrack</span></div>
+    <nav>
+      <a href="{% url 'corporate_dashboard' %}">Dashboard</a>
+      <a href="{% url 'corporate_view_bins' %}">View Bins</a>
+      <a href="{% url 'schedule_collection' %}">Schedule</a>
+      <a href="{% url 'collection_history' %}">History</a>
+      <a class="active" href="{% url 'corporate_feedback' %}">Feedbacks</a>
+      <a href="{% url 'logout_view' %}">Logout</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h2>📣 All Feedbacks</h2>
+
+    <section>
+      <h3>👨‍🎓 Student Feedbacks</h3>
+      {% if student_feedbacks %}
+        <table>
+          <thead>
+            <tr>
+              <th>Student</th>
+              <th>Location</th>
+              <th>Message</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for f in student_feedbacks %}
+            <tr>
+              <td>{{ f.user.username }}</td>
+              <td>{{ f.location }}</td>
+              <td>{{ f.message }}</td>
+              <td>
+                {% if f.feedback_type == "Alert" %}
+                  {% if f.status == "Pending" %}
+                    <span style="color:red;">⏳ Pending</span>
+                  {% else %}
+                    <span style="color:green;">✅ Resolved</span>
+                  {% endif %}
+                {% else %}
+                  {% if f.status == "Unread" %}
+                    <span style="color:orange;">📩 Unread</span>
+                  {% else %}
+                    <span style="color:green;">📖 Read</span>
+                  {% endif %}
+                {% endif %}
+              </td>
+              <td>{{ f.created_at|date:"M d, Y" }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p>No student feedbacks.</p>
+      {% endif %}
+    </section>
+
+    <section>
+      <h3>👨‍🔧 Staff Feedbacks</h3>
+      {% if staff_feedbacks %}
+        <table>
+          <thead>
+            <tr>
+              <th>Staff</th>
+              <th>Location</th>
+              <th>Type</th>
+              <th>Message</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for f in staff_feedbacks %}
+            <tr>
+              <td>{{ f.user.username }}</td>
+              <td>{{ f.location }}</td>
+              <td>{{ f.feedback_type }}</td>
+              <td>{{ f.message }}</td>
+              <td>
+                {% if f.feedback_type == "Alert" %}
+                  {% if f.status == "Pending" %}
+                    <span style="color:red;">⏳ Pending</span>
+                  {% else %}
+                    <span style="color:green;">✅ Resolved</span>
+                  {% endif %}
+                {% else %}
+                  {% if f.status == "Unread" %}
+                    <span style="color:orange;">📩 Unread</span>
+                  {% else %}
+                    <span style="color:green;">📖 Read</span>
+                  {% endif %}
+                {% endif %}
+              </td>
+              <td>{{ f.created_at|date:"M d, Y" }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p>No staff feedbacks.</p>
+      {% endif %}
+    </section>
+
+    <section>
+      <h3>🧑‍💼 Headstaff Feedbacks</h3>
+      {% if headstaff_feedbacks %}
+        <table>
+          <thead>
+            <tr>
+              <th>Headstaff</th>
+              <th>Location</th>
+              <th>Type</th>
+              <th>Message</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for f in headstaff_feedbacks %}
+            <tr>
+              <td>{{ f.user.username }}</td>
+              <td>{{ f.location }}</td>
+              <td>{{ f.feedback_type }}</td>
+              <td>{{ f.message }}</td>
+              <td>
+                {% if f.feedback_type == "Alert" %}
+                  {% if f.status == "Pending" %}
+                    <span style="color:red;">⏳ Pending</span>
+                  {% else %}
+                    <span style="color:green;">✅ Resolved</span>
+                  {% endif %}
+                {% else %}
+                  {% if f.status == "Unread" %}
+                    <span style="color:orange;">📩 Unread</span>
+                  {% else %}
+                    <span style="color:green;">📖 Read</span>
+                  {% endif %}
+                {% endif %}
+              </td>
+              <td>{{ f.created_at|date:"M d, Y" }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p>No headstaff feedbacks.</p>
+      {% endif %}
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 CampusEcoTrack | Corporate Panel</p>
+  </footer>
+</body>
+</html>

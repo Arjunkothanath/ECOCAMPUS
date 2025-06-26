@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CampusEcoTrack | Home</title>
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+</head>
+<body>
+    <header>
+        <div class="logo">Campus<span>EcoTrack</span></div>
+        <nav>
+            <a class="active" href='/home'>Home</a>
+            <a href='/about'>About</a>
+            <a href='/login/'>Login</a>
+            <a href='/register'>Register</a>
+            <a href='/contact'>Contact</a>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h1>Smart Campus Waste Management</h1>
+        <p>Monitor, manage, and optimize your campus waste system with CampusEcoTrack.</p>
+        <div class="buttons">
+            <a href="{% url 'login_view' %}" class="btn btn-login">Sign In</a>
+            <a href="{% url 'register_view' %}" class="btn btn-register">Register as Student</a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-about">
+            <h3>About</h3>
+            <p>CampusEcoTrack simplifies waste monitoring and encourages sustainable practices inside campus communities.</p>
+        </div>
+        <div class="footer-links">
+            <h3>Quick Links</h3>
+            <a href="/home">Home</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+        </div>
+        <div class="footer-contact">
+            <h3>Contact</h3>
+            <p>📧 info@campusecotrack.com</p>
+            <p>📞 +91-12345-67890</p>
+            <p>📍 India</p>
+        </div>
+    </footer>
+</body>
+</html>

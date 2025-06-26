@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Submit Feedback</title>
+  <link rel="stylesheet" href="{% static 'feedback.css' %}">
+</head>
+<body>
+  <main class="feedback-form">
+    <h2>📣 Report a Bin</h2>
+    <form method="POST">
+      {% csrf_token %}
+      <label>📍 Location</label>
+      <input type="text" name="location" placeholder="e.g., Block A near stairs" required>
+
+      <label>📝 Message</label>
+      <textarea name="message" placeholder="Describe the issue..." required></textarea>
+
+      <button type="submit">Submit</button>
+    </form>
+  </main>
+</body>
+</html>

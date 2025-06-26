@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login | CampusEcoTrack</title>
+    <link rel="stylesheet" href="{% static 'login.css' %}">
+</head>
+<body>
+    <header>
+        <div class="logo">Campus<span>EcoTrack</span></div>
+        <nav>
+            <a href='/home'>Home</a>
+            <a href="/about">About</a>
+            <a class="active" href='/login'>Login</a>
+            <a href='/register'>Register</a>
+            <a href="/contact">Contact</a>
+        </nav>
+    </header>
+
+    <div class="login-container">
+        <h2>Please Sign In</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Email Address">
+            <input type="password" name="password" placeholder="Password">
+            <button type="submit">Sign In</button>
+        </form>
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+    </div>
+
+    <footer>
+        <div class="footer-about">
+            <h3>About</h3>
+            <p>Waste management includes processes from collection to disposal with monitoring and regulation.</p>
+        </div>
+        <div class="footer-links">
+            <h3>Quick Links</h3>
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Services</a>
+            <a href="#">Contact</a>
+        </div>
+        <div class="footer-contact">
+            <h3>Contact</h3>
+            <p>📧 info@example.com</p>
+            <p>📞 +44-123-456-78</p>
+            <p>📍 New York, 235 Terry Lane, 10001</p>
+        </div>
+    </footer>
+</body>
+</html>

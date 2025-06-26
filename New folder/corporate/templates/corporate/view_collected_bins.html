@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Collected Bins | Corporate Panel</title>
+  <link rel="stylesheet" href="{% static 'view_collected_bins.css' %}">
+</head>
+<body>
+  <header>
+    <div class="logo">Campus<span>EcoTrack</span></div>
+    <nav>
+      <a href="{% url 'corporate_dashboard' %}">Dashboard</a>
+      <a href="{% url 'corporate_view_bins' %}">View Bins</a>
+      <a href="{% url 'schedule_collection' %}">Schedule</a>
+      <a href="{% url 'collection_history' %}">History</a>
+      <a href="{% url 'corporate_feedback' %}">Feedbacks</a>
+      <a class="active" href="{% url 'corporate_view_collected_bins' %}">Collected</a>
+      <a href="{% url 'logout_view' %}">Logout</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h2>✅ Collected Bins</h2>
+
+    {% if collections %}
+      <table>
+        <thead>
+          <tr>
+            <th>🗑️ Bin Category</th>
+            <th>📍 Location</th>
+            <th>👤 Collected By</th>
+            <th>📅 Collected At</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for c in collections %}
+          <tr>
+            <td>{{ c.bin.category }}</td>
+            <td>{{ c.bin.location }}</td>
+            <td>{{ c.collected_by.username }}</td>
+            <td>{{ c.collected_at|date:"M d, Y — H:i" }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>No bins have been collected yet.</p>
+    {% endif %}
+  </main>
+
+  <footer>
+    <p>&copy; 2025 CampusEcoTrack | Corporate Panel</p>
+  </footer>
+</body>
+</html>

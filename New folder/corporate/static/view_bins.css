@@ -1,0 +1,32 @@
+/* View Bins Specific Styles */
+@import url('corporate.css');
+@import url('common.css');
+.table-container {
+    overflow-x: auto;
+}
+
+.status-full {
+    color: #dc3545;
+    font-weight: 500;
+}
+
+.status-empty {
+    color: #28a745;
+    font-weight: 500;
+}
+
+.fill-level {
+    font-weight: 500;
+}
+
+.fill-level.high {
+    color: #dc3545;
+}
+
+.fill-level.medium {
+    color: #fd7e14;
+}
+
+.fill-level.low {
+    color: #28a745;
+}

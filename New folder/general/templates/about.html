@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About | CampusEcoTrack</title>
+    <link rel="stylesheet" href="{% static 'about.css' %}">
+</head>
+<body>
+    <header>
+        <div class="logo">Campus<span>EcoTrack</span></div>
+        <nav>
+            <a href='/home'>Home</a>
+            <a class="active" href="/about">About</a>
+            <a href='/login'>Login</a>
+            <a  href='/register'>Register</a>
+            <a href='/contact'>Contact</a>
+        </nav>
+    </header>
+
+    <section class="about">
+        <h1>About CampusEcoTrack</h1>
+        <p>CampusEcoTrack is a smart waste management system for educational campuses.</p>
+        <p>It helps track bin status, allows students and staff to give feedback, and promotes sustainability through organized waste collection and monitoring.</p>
+        <p>Our goal is to build a cleaner, smarter campus through eco-friendly digital solutions.</p>
+    </section>
+
+    <footer>
+        <div class="footer-about">
+            <h3>About</h3>
+            <p>Smart campus waste monitoring and feedback system.</p>
+        </div>
+        <div class="footer-links">
+            <h3>Quick Links</h3>
+            <a href="/home">Home</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+        </div>
+        <div class="footer-contact">
+            <h3>Contact</h3>
+            <p>📧 info@campusecotrack.com</p>
+            <p>📞 +91-98765-43210</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Manage Bins | Corporate</title>
+  <link rel="stylesheet" href="{% static 'view_bins.css' %}">
+</head>
+<body>
+  <header>
+  <div class="logo">Campus<span>EcoTrack</span></div>
+  <nav>
+    <a href="{% url 'corporate_dashboard' %}" class="{% if request.path == '/corporate-dashboard/' %}active{% endif %}">Dashboard</a>
+    <a href="{% url 'corporate_view_bins' %}" class="{% if 'bins' in request.path %}active{% endif %}">View Bins</a>
+    <a href="{% url 'schedule_collection' %}" class="{% if 'schedule' in request.path %}active{% endif %}">Schedule</a>
+    <a href="{% url 'collection_history' %}" class="{% if 'history' in request.path %}active{% endif %}">History</a>
+    <a href="{% url 'corporate_feedback' %}" class="{% if 'feedback' in request.path %}active{% endif %}">Feedbacks</a>
+    <a href="{% url 'logout_view' %}">Logout</a>
+  </nav>
+</header>
+
+  <main class="table-container">
+    <h2>📦 All Bins</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Location</th>
+          <th>Category</th>
+          <th>Status</th>
+          <th>Fill Level (%)</th>
+          <th>Scheduled Date</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for bin in bins %}
+        <tr>
+          <td>{{ bin.location }}</td>
+          <td>{{ bin.category }}</td>
+          <td>{{ bin.status }}</td>
+          <td>{{ bin.fill_level }}</td>
+          <td>
+            {% if bin.scheduled_date %}
+              {{ bin.scheduled_date|date:"M d, Y" }}
+            {% else %}
+              <span style="color:#888;">Not Scheduled</span>
+            {% endif %}
+          </td>
+          <td>
+            {% if bin.status == "Full" or bin.scheduled_date == today %}
+              <a href="{% url 'collect_bin' bin.id %}" class="btn-collect">🚛 Collect</a>
+            {% else %}
+              <button class="btn-collect disabled" disabled>🚫 Collect</button>
+            {% endif %}
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6">No bins found.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </main>
+</body>
+</html>

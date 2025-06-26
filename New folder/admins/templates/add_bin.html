@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Bin | Admin Panel</title>
+  <link rel="stylesheet" href="{% static 'bin_form.css' %}">
+</head>
+<body>
+  <header>
+    <div class="logo">Campus<span>EcoTrack</span></div>
+    <nav>
+      <a href="{% url 'admin_dashboard' %}">Dashboard</a>
+      <a href="{% url 'view_users' %}">View Users</a>
+      <a href="{% url 'add_user' %}">Add User</a>
+      <a class="active" href="{% url 'manage_bins' %}">Manage Bins</a>
+      <a href="{% url 'view_feedback' %}">Feedback</a>
+      <a href="{% url 'logout_view' %}">Logout</a>
+    </nav>
+  </header>
+
+  <main class="form-container">
+    <div class="form-card">
+      <h2>➕ Add New Bin</h2>
+      <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+          <label>Category</label>
+          <select name="category" required>
+            <option value="">-- Select Category --</option>
+            <option value="Dry">Dry</option>
+            <option value="Wet">Wet</option>
+            <option value="Plastic">Plastic</option>
+            <option value="E-Waste">E-Waste</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="location">📍 Location</label>
+          <select name="location" required>
+            <option value="">-- Select Location --</option>
+            <option>Block A</option>
+            <option>Block B</option>
+            <option>Canteen</option>
+            <option>Hostel</option>
+            <option>Library</option>
+            <option>Playground</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="status">📦 Status</label>
+          <select name="status" required>
+            <option>Empty</option>
+            <option>Full</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="fill_level">📊 Fill Level (%)</label>
+          <input type="number" name="fill_level" min="0" max="100" placeholder="Enter 0 - 100" required>
+        </div>
+
+        <button type="submit">✅ Add Bin</button>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 CampusEcoTrack | Admin Panel</p>
+  </footer>
+</body>
+</html>
