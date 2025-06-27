@@ -6,9 +6,15 @@ body {
     line-height: 1.6;
 }
 
+body {
+    background-color: #ffffff;
+    color: #333333;
+    line-height: 1.6;
+}
+
 header {
-    background-color: #000;
-    color: white;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
     padding: 1rem 5%;
     display: flex;
     justify-content: space-between;
@@ -24,15 +30,19 @@ header {
     font-weight: 700;
     letter-spacing: 1px;
 }
+.logo::before {
+    content: "♻️";
+    font-size: 1.5rem;
+}
 
 .logo span {
     color: #4CAF50;
 }
 
 nav a {
-    color: #ffffff;
+    color: #000000;
     text-decoration: none;
-    margin-left: 1.5rem;
+    margin-left: 2rem;
     font-weight: 500;
     transition: all 0.3s ease;
     padding: 0.5rem 1rem;
