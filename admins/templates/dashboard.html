@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard | CampusEcoTrack</title>
+  <link rel="stylesheet" href="{% static 'dashboard.css' %}">
+</head>
+<body>
+  <header>
+    <div class="logo">Campus<span>EcoTrack</span></div>
+    <nav>
+      <a class="active" href="{% url 'admin_dashboard' %}">Dashboard</a>
+      <a href="{% url 'view_users' %}">View Users</a>
+      <a href="{% url 'add_user' %}">Add User</a>
+      <a href="{% url 'manage_bins' %}">Manage Bins</a>
+      <a href="{% url 'view_feedback' %}">Feedback</a>
+      <a href="{% url 'logout_view' %}">Logout</a>
+    </nav>
+  </header>
+
+  <main class="dashboard">
+    <h1>Welcome, Admin!</h1><br>
+    <div class="stats-cards">
+      <div class="card red">🗑️ Total Bins<br><span>{{ total_bins }}</span></div>
+      <div class="card orange">🔴 Full Bins<br><span>{{ full_bins }}</span></div>
+      <div class="card green">🟢 Empty Bins<br><span>{{ empty_bins }}</span></div>
+      <div class="card blue">📬 Total Feedbacks<br><span>{{ total_feedbacks }}</span></div>
+    </div>
+    <p>Manage your campus system below:</p><br>
+    <div class="cards-container">
+      <a href="{% url 'view_users' %}" class="card">👥 View All Users</a>
+      <a href="{% url 'add_user' %}" class="card">➕ Add Staff/Corporate</a>
+      <a href="{% url 'manage_bins' %}" class="card">🗑️ Manage Bins</a>
+      <a href="{% url 'view_feedback' %}" class="card">📬 View Feedback</a>
+      <a href="{% url 'view_collections' %}" class="card">📄 View Bin Collection History</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 CampusEcoTrack | Admin Panel</p>
+  </footer>
+</body>
+</html>

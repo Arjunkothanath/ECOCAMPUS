@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Feedback Reports | Admin</title>
+  <link rel="stylesheet" href="{% static 'dashboard.css' %}">
+</head>
+<body>
+  <header>
+    <div class="logo">Campus<span>EcoTrack</span></div>
+    <nav>
+      <a href="{% url 'admin_dashboard' %}">Dashboard</a>
+      <a href="{% url 'view_users' %}">View Users</a>
+      <a href="{% url 'add_user' %}">Add User</a>
+      <a href="{% url 'manage_bins' %}">Manage Bins</a>
+      <a class="active" href="{% url 'view_feedback' %}">Feedback</a>
+      <a href="{% url 'logout_view' %}">Logout</a>
+    </nav>
+  </header>
+
+  <main class="dashboard">
+    <h1>📋 Feedback Reports</h1>
+    <table class="user-table">
+      <thead>
+        <tr>
+            <th>User</th>
+            <th>Location</th>
+            <th>Type</th>
+            <th>Category</th>
+            <th>Message</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Action</th>
+            <th>Clear</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for f in feedbacks %}
+        <tr>
+            <td>{{ f.user.username }}</td>
+            <td>{{ f.location }}</td>
+            <td>{{ f.feedback_type }}</td>
+            <td>
+              {% for bin in bins %}
+                {% if bin.location == f.location %}
+                  {{ bin.category }}
+                {% endif %}
+              {% endfor %}
+            </td>
+            <td>{{ f.message }}</td>
+            <td>{{ f.created_at|date:"Y-m-d H:i" }}</td>
+            <td>
+              {% if f.feedback_type == "Alert" %}
+                {% if f.status == "Pending" %}
+                  <span style="color:red;">⏳ Pending</span>
+                {% else %}
+                  <span style="color:green;">✅ Resolved</span>
+                {% endif %}
+              {% else %}
+                {% if f.status == "Unread" %}
+                  <span style="color:orange;">📩 Unread</span>
+                {% else %}
+                  <span style="color:green;">📖 Read</span>
+                {% endif %}
+              {% endif %}
+            </td>
+            <td>
+              {% if f.feedback_type == "Alert" %}
+                {% if f.status == "Pending" %}
+                  <a href="{% url 'edit_bin_by_location' f.id %}" class="btn">🗑 Mark Bin Full</a>
+                {% else %}
+                  <span class="note-muted">✔ Bin Resolved</span>
+                {% endif %}
+
+              {% elif f.feedback_type == "Suggestion" or f.feedback_type == "Complaint" %}
+                {% if f.status == "Unread" %}
+                  <a href="{% url 'mark_feedback_as_read' f.id %}" class="btn">📖 Mark as Read</a>
+                {% else %}
+                  <span class="note-muted">✔ Already Read</span>
+                {% endif %}
+
+              {% else %}
+                <span class="note-muted">—</span>
+              {% endif %}
+            </td>
+            <td>
+              <form method="POST" action="{% url 'delete_feedback' f.id %}" onsubmit="return confirm('Are you sure you want to delete this feedback?');">
+                {% csrf_token %}
+                <button type="submit" class="btn-delete" style="border: 0; color: rgb(255, 8, 8);">🗑 Delete</button>
+              </form>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="7">No feedback submitted yet.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+  </main>
+</body>
+</html>

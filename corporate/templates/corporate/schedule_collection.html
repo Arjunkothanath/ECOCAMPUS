@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Schedule Collection | Corporate</title>
+  <link rel="stylesheet" href="{% static 'schedule_collection.css' %}">
+</head>
+<body>
+  <header>
+  <div class="logo">Campus<span>EcoTrack</span></div>
+  <nav>
+    <a href="{% url 'corporate_dashboard' %}" class="{% if request.path == '/corporate-dashboard/' %}active{% endif %}">Dashboard</a>
+    <a href="{% url 'corporate_view_bins' %}" class="{% if 'bins' in request.path %}active{% endif %}">View Bins</a>
+    <a href="{% url 'schedule_collection' %}" class="{% if 'schedule' in request.path %}active{% endif %}">Schedule</a>
+    <a href="{% url 'collection_history' %}" class="{% if 'history' in request.path %}active{% endif %}">History</a>
+    <a href="{% url 'corporate_feedback' %}" class="{% if 'feedback' in request.path %}active{% endif %}">Feedbacks</a>
+    <a href="{% url 'logout_view' %}">Logout</a>
+  </nav>
+</header>
+
+  <main class="form-container">
+    <h2>📅 Schedule Bin Collection</h2>
+    <form method="POST">
+      {% csrf_token %}
+      <div class="form-group">
+        <label>📍 Select Bin</label>
+        <select name="bin" required>
+          <option value="">-- Select Bin --</option>
+          {% for bin in bins %}
+            <option value="{{ bin.id }}" {% if selected_bin and selected_bin.id == bin.id %}selected{% endif %}>
+              {{ bin.location }} - ({{ bin.category }})
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>🗓 Collection Date</label>
+        <input type="date" name="schedule_date" id="schedule_date" required>
+      </div>
+
+      <button type="submit">✅ Save Schedule</button>
+    </form>
+  </main>
+</body>
+</html>

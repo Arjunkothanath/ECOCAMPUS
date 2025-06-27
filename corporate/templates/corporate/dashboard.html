@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Corporate Dashboard | CampusEcoTrack</title>
+  <link rel="stylesheet" href="{% static 'corporate.css' %}">
+</head>
+<body>
+  <header>
+  <div class="logo">Campus<span>EcoTrack</span></div>
+  <nav>
+    <a href="{% url 'corporate_dashboard' %}" class=active>Dashboard</a>
+    <a href="{% url 'corporate_view_bins' %}" class="{% if 'bins' in request.path %}active{% endif %}">View Bins</a>
+    <a href="{% url 'schedule_collection' %}" class="{% if 'schedule' in request.path %}active{% endif %}">Schedule</a>
+    <a href="{% url 'collection_history' %}" class="{% if 'history' in request.path %}active{% endif %}">History</a>
+    <a href="{% url 'corporate_feedback' %}" class="{% if 'feedback' in request.path %}active{% endif %}">Feedbacks</a>
+    <a href="{% url 'logout_view' %}">Logout</a>
+  </nav>
+</header>
+
+  <main class="dashboard-container">
+    <h2>🧑‍💼 Corporate Dashboard Overview</h2>
+
+    <section class="card-grid">
+
+      <!-- 1. Feedback Overview -->
+      <div class="card">
+        <h3>📣 {{ total_feedbacks }} Feedbacks</h3>
+        <p>From students, staff & headstaff</p>
+        <a href="{% url 'corporate_feedback' %}" class="btn">View All</a>
+      </div>
+
+      <!-- 2. Collection History -->
+      <div class="card">
+        <h3>🕘 Collection History</h3>
+        <p>Total Records: {{ collection_count }}</p>
+        <a href="{% url 'collection_history' %}" class="btn">📂 View History</a>
+      </div>
+
+      <!-- 3. Schedule Waste Collection -->
+      <div class="card">
+        <h3>📅 Schedule Collection</h3>
+        <p>Assign collection dates to bins.</p>
+        <a href="{% url 'schedule_collection' %}" class="btn">🛠 Schedule Now</a>
+      </div>
+
+      <!-- 4. Collected Bins -->
+      <div class="card">
+        <h3>✅ Collected Bins</h3>
+        <p>Total Collected: {{ collected_bins_count }}</p>
+        <a href="{% url 'corporate_view_collected_bins' %}" class="btn">📦 View Details</a>
+      </div>
+
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 CampusEcoTrack | Corporate Panel</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'dashboard.css' %}">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+</style>
+<body>
+    <h2 style="text-align: center;">❌ No bin found at "{{ location }}"</h2>
+    <p>Consider adding this bin manually from the dashboard.</p>
+    <a href="{% url 'add_bin' %}">➕ Add Bin</a>
+</body>
+</html>

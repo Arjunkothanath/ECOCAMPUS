@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <head>
+    <meta charset="UTF-8">
+    <title>Add User | Admin Panel</title>
+    <link rel="stylesheet" href="{% static 'dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'add_user.css' %}">
+</head>
+<body>
+    <header>
+    <div class="logo">Campus<span>EcoTrack</span></div>
+    <nav>
+      <a href="{% url 'admin_dashboard' %}">Dashboard</a>
+      <a href="{% url 'view_users' %}">View Users</a>
+      <a class="active" href="{% url 'add_user' %}">Add User</a>
+      <a href="{% url 'manage_bins' %}">Manage Bins</a>
+      <a href="{% url 'view_feedback' %}">Feedback</a>
+      <a href="{% url 'logout_view' %}">Logout</a>
+    </nav>
+  </header>
+
+    <main class="dashboard">
+        <h1>Add New Staff/Corporate</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Username" required><br>
+            <input type="email" name="email" placeholder="Email" required><br>
+            <input type="password" name="password" placeholder="Password" required><br>
+            <select name="role" required>
+                <option value="">Select Role</option>
+                <option value="headstaff">Headstaff</option>
+                <option value="corporate">Corporate</option>
+            </select><br><br>
+            <button type="submit">Create User</button>
+        </form>
+        {% if error %}
+            <p style="color: red;">{{ error }}</p>
+        {% endif %}
+    </main>
+</body>
+</html>

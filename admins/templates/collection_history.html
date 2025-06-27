@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bin Collection History</title>
+  <link rel="stylesheet" href="{% static 'collection.css' %}">
+</head>
+<body>
+  <h1>🧾 Bin Collection History</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Bin Location</th>
+        <th>Category</th>
+        <th>Collected At</th>
+        <th>Collected By</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for c in collections %}
+      <tr>
+        <td>{{ c.bin.location }}</td>
+        <td>{{ c.bin.category }}</td>
+        <td>{{ c.collected_by.username }}</td>
+        <td>{{ c.collected_at|date:"Y-m-d H:i:s" }}</td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="3">No collection history found.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <div class="btn-back">
+  <a href="{% url 'admin_dashboard' %}">⬅ Back to Dashboard</a>
+</div>
+</body>
+</html>

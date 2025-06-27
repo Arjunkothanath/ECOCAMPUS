@@ -1,0 +1,15 @@
+/* Collected Bins Specific Styles */
+@import url('corporate.css');
+@import url('common.css');
+.container {
+    padding: 2rem;
+}
+
+.empty-message {
+    text-align: center;
+    padding: 2rem;
+    color: #6c757d;
+    font-style: italic;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+}

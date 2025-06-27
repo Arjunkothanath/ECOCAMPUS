@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Users | Admin Panel</title>
+    <link rel="stylesheet" href="{% static 'dashboard.css' %}">
+</head>
+<body>
+    <header>
+        <div class="logo">Campus<span>EcoTrack</span></div>
+        <nav>
+        <a href="{% url 'admin_dashboard' %}">Dashboard</a>
+        <a class="active" href="{% url 'view_users' %}">View Users</a>
+        <a href="{% url 'add_user' %}">Add User</a>
+        <a href="{% url 'manage_bins' %}">Manage Bins</a>
+        <a href="{% url 'view_feedback' %}">Feedback</a>
+        <a href="{% url 'logout_view' %}">Logout</a>
+        </nav>
+    </header>
+
+    <main class="dashboard">
+        <h1>All Users</h1>
+
+        <form method="GET" style="margin-bottom: 20px;">
+            <label for="role">Filter by Role: </label>
+            <select name="role" onchange="this.form.submit()">
+                <option value="">-- All --</option>
+                <option value="student" {% if selected_role == 'student' %}selected{% endif %}>Student</option>
+                <option value="staff" {% if selected_role == 'headstaff' %}selected{% endif %}>Headstaff</option>
+                <option value="staff" {% if selected_role == 'staff' %}selected{% endif %}>Staff</option>
+                <option value="corporate" {% if selected_role == 'corporate' %}selected{% endif %}>Corporate</option>
+            </select>
+        </form>
+
+        <table class="user-table">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Date Joined</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.role|capfirst }}</td>
+                    <td>{{ user.date_joined|date:"Y-m-d" }}</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="4">No users found.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>

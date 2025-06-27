@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Bin (From Feedback) | Admin Panel</title>
+  <link rel="stylesheet" href="{% static 'bin_form.css' %}">
+</head>
+<body>
+  <header>
+    <div class="logo">Campus<span>EcoTrack</span></div>
+    <nav>
+      <a href="{% url 'admin_dashboard' %}">Dashboard</a>
+      <a href="{% url 'view_users' %}">View Users</a>
+      <a href="{% url 'add_user' %}">Add User</a>
+      <a class="active" href="{% url 'manage_bins' %}">Manage Bins</a>
+      <a href="{% url 'view_feedback' %}">Feedback</a>
+      <a href="{% url 'logout_view' %}">Logout</a>
+    </nav>
+  </header>
+
+  <main class="form-container">
+    <div class="form-card">
+      <h2>🔁 Update Bin from Feedback</h2>
+      <form method="POST">
+        {% csrf_token %}
+
+        <div class="form-group">
+          <label>Category</label>
+          <select name="category" required>
+            <option value="Dry" {% if bin.category == 'Dry' %}selected{% endif %}>Dry</option>
+            <option value="Wet" {% if bin.category == 'Wet' %}selected{% endif %}>Wet</option>
+            <option value="Plastic" {% if bin.category == 'Plastic' %}selected{% endif %}>Plastic</option>
+            <option value="E-Waste" {% if bin.category == 'E-Waste' %}selected{% endif %}>E-Waste</option>
+            <option value="Other" {% if bin.category == 'Other' %}selected{% endif %}>Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>📍 Location</label>
+          <select name="location" required>
+            <option value="Block A" {% if bin.location == 'Block A' %}selected{% endif %}>Block A</option>
+            <option value="Block B" {% if bin.location == 'Block B' %}selected{% endif %}>Block B</option>
+            <option value="Canteen" {% if bin.location == 'Canteen' %}selected{% endif %}>Canteen</option>
+            <option value="Hostel" {% if bin.location == 'Hostel' %}selected{% endif %}>Hostel</option>
+            <option value="Library" {% if bin.location == 'Library' %}selected{% endif %}>Library</option>
+            <option value="Playground" {% if bin.location == 'Playground' %}selected{% endif %}>Playground</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>📦 Status</label>
+          <select name="status" required>
+            <option value="Empty" {% if bin.status == 'Empty' %}selected{% endif %}>Empty</option>
+            <option value="Full" {% if bin.status == 'Full' %}selected{% endif %}>Full</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>📊 Fill Level (%)</label>
+          <input type="number" name="fill_level" min="0" max="100" value="{{ bin.fill_level }}" required>
+        </div>
+
+        <button type="submit">✅ Update Bin</button>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 CampusEcoTrack | Admin Panel</p>
+  </footer>
+</body>
+</html>

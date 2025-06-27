@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Collection History | Corporate</title>
+  <link rel="stylesheet" href="{% static 'collection_history.css' %}">
+</head>
+<body>
+  <header>
+  <div class="logo">Campus<span>EcoTrack</span></div>
+  <nav>
+    <a href="{% url 'corporate_dashboard' %}" class="{% if request.path == '/corporate-dashboard/' %}active{% endif %}">Dashboard</a>
+    <a href="{% url 'corporate_view_bins' %}" class="{% if 'bins' in request.path %}active{% endif %}">View Bins</a>
+    <a href="{% url 'schedule_collection' %}" class="{% if 'schedule' in request.path %}active{% endif %}">Schedule</a>
+    <a href="{% url 'collection_history' %}" class="{% if 'history' in request.path %}active{% endif %}">History</a>
+    <a href="{% url 'corporate_feedback' %}" class="{% if 'feedback' in request.path %}active{% endif %}">Feedbacks</a>
+    <a href="{% url 'logout_view' %}">Logout</a>
+  </nav>
+</header>
+
+  <main class="table-container">
+    <h2>📂 Collection History</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Bin Location</th>
+          <th>Category</th>
+          <th>Collected By</th>
+          <th>Collected At</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for c in collections %}
+        <tr>
+          <td>{{ c.bin.location }}</td>
+          <td>{{ c.bin.category }}</td>
+          <td>{{ c.collected_by.username }}</td>
+          <td>{{ c.collected_at|date:"Y-m-d H:i" }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4">No collection records found.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </main>
+</body>
+</html>
