@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Submit Feedback | Headstaff</title>
+  <link rel="stylesheet" href="{% static 'headstaff_feedback.css' %}">
+</head>
+<body>
+  <header>
+  <div class="logo">Campus<span>EcoTrack</div>
+  <nav>
+    <a href="{% url 'headstaff_dashboard' %}">Dashboard</a>
+    <a href="{% url 'add_staff_by_head' %}">Add Staff</a>
+    <a href="{% url 'manage_staff' %}">Manage Staff</a>
+    <a href="{% url 'headstaff_view_users' %}">View Users</a>
+    <a class="active" href="{% url 'view_head_feedback' %}">Feedback</a>
+    <a href="{% url 'logout_view' %}">Logout</a>
+  </nav>
+</header>
+
+  <main class="form-container">
+    <div class="form-card">
+      <h2>📝 Submit Feedback</h2>
+      <form method="POST">
+        {% csrf_token %}
+        
+        <div class="form-group">
+          <label for="type">Feedback Type</label>
+          <select name="type" required>
+            <option value="">-- Select Type --</option>
+            <option value="Suggestion">Suggestion</option>
+            <option value="Complaint">Complaint</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="location">Location</label>
+          <select name="location" id="location">
+            <option value="">-- Select Location --</option>
+            <option>Block A</option>
+            <option>Block B</option>
+            <option>Canteen</option>
+            <option>Hostel</option>
+            <option>Library</option>
+            <option>Playground</option>
+            <option>Others</option>
+          </select>
+        </div>
+
+        <div class="form-group" id="other-location-group" style="display: none;">
+          <label for="other_location">Specify Other Location</label>
+          <input type="text" name="other_location" placeholder="Enter custom location">
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea name="message" rows="5" placeholder="Write your feedback here..." required></textarea>
+        </div>
+
+        <button type="submit">📤 Submit</button>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 CampusEcoTrack | Headstaff Panel</p>
+  </footer>
+
+  <script>
+    document.getElementById('location').addEventListener('change', function () {
+      const customInput = document.getElementById('other-location-group');
+      if (this.value === 'Others') {
+        customInput.style.display = 'block';
+      } else {
+        customInput.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>

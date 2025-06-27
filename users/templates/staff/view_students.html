@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>All Students</title>
+  <link rel="stylesheet" href="{% static 'staff_table.css' %}">
+</head>
+<body>
+<header>
+  <div class="logo">Campus<span>EcoTrack</div>
+  <nav>
+    <a href="{% url 'staff_dashboard' %}">Dashboard</a>
+    <a href="{% url 'submit_feedback' %}">Submit Feedback</a>
+    <a href="{% url 'view_feedbacks' %}">View Feedback</a>
+    <a class="active" href="{% url 'view_students' %}">View Students</a>
+    <a href="{% url 'logout_view' %}">Logout</a>
+  </nav>
+</header>
+<main class="dashboard">
+  <div class="card">
+    <h2>🧑‍🎓 All Registered Students</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for student in students %}
+        <tr>
+          <td>{{ student.username }}</td>
+          <td>{{ student.email }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="2">No students found.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</main>
+</body>
+</html>

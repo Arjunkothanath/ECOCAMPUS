@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Manage Staff</title>
+  <link rel="stylesheet" href="{% static 'headstaff.css' %}">
+</head>
+<body>
+
+<header>
+  <div class="logo">Campus<span>EcoTrack</div>
+  <nav>
+    <a href="{% url 'headstaff_dashboard' %}">Dashboard</a>
+    <a href="{% url 'add_staff_by_head' %}">Add Staff</a>
+    <a class="active" href="{% url 'manage_staff' %}">Manage Staff</a>
+    <a href="{% url 'headstaff_view_users' %}">View Users</a>
+    <a href="{% url 'view_head_feedback' %}">Feedback</a>
+    <a href="{% url 'logout_view' %}">Logout</a>
+  </nav>
+</header>
+
+<main class="dashboard">
+  <h1>👷 Manage Staff</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in staff_users %}
+      <tr>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+        <td>
+          <a href="{% url 'edit_staff' user.id %}">✏ Edit</a> |
+          <a href="{% url 'delete_staff' user.id %}" onclick="return confirm('Are you sure?');">🗑 Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</main>
+
+</body>
+</html>

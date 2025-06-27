@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Staff Dashboard</title>
+  <link rel="stylesheet" href="{% static 'staff_dashboard.css' %}">
+</head>
+<body>
+<header>
+  <div class="logo">Campus<span>EcoTrack</div>
+  <nav>
+    <a class="active" href="{% url 'staff_dashboard' %}">Dashboard</a>
+    <a href="{% url 'submit_feedback' %}">Submit Feedback</a>
+    <a href="{% url 'view_feedbacks' %}">View Feedback</a>
+    <a href="{% url 'view_students' %}">View Students</a>
+    <a href="{% url 'logout_view' %}">Logout</a>
+  </nav>
+</header>
+
+<main class="dashboard">
+  <h1>👋 Welcome, {{ request.user.username }}</h1>
+  <div class="cards">
+    <div class="card blue">👥 Students <span>{{ student_count }}</span></div>
+    <div class="card green">🧾 Student Feedbacks <span>{{ student_feedback_count }}</span></div>
+    <div class="card red">📤 My Feedbacks <span>{{ my_feedback_count }}</span></div>
+  </div>
+</main>
+</body>
+</html>
