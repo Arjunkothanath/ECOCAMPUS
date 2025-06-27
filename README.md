@@ -55,4 +55,42 @@ A modern web-based waste management platform designed for educational campuses. 
 ---
 
 ## 📂 Folder Structure
+campusecotrack/
+├── admins/
+├── corporate/
+├── users/
+├── general/
+├── templates/
+│ └── [dashboard.html, feedbacks.html, ...]
+├── static/
+│ └── [admin.css, dashboard.css, feedback.css, ...]
+├── manage.py
+└── README.md
+
+
+---
+
+## ⚙️ Setup Instructions
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/yourusername/campusecotrack.git
+cd campusecotrack
+
+# 2. Create virtual environment
+python -m venv eco
+source eco/bin/activate  # On Windows: eco\Scripts\activate
+
+# 3. Install dependencies
+pip install -r requirements.txt
+
+# 4. Set up database
+python manage.py makemigrations
+python manage.py migrate
+
+# 5. Create superuser
+python manage.py createsuperuser
+
+# 6. Run the server
+python manage.py runserver
 
